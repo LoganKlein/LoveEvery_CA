@@ -60,7 +60,7 @@ class WebServiceManager: NSObject {
         sessionManager.request(endpoint, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil) .response { response in
             if let jsonData = response.data {
                 if let json = WebServiceManager.dataToJSON(data: jsonData) {
-                    let item = Mapper<GenericResponse>().map(JSON: json)
+                    let item = GenericResponse(JSON: json)
                     callback(item?.statusCode == 200)
                     return
                 }

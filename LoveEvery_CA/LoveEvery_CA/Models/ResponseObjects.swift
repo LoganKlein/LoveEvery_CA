@@ -51,7 +51,7 @@ class AllMessagesResponse: GenericResponse {
             return
         }
         
-        // Because the keys are dynamic and at the top level of the parsed object, we must collect these to allow for proper data mapping
+        // Because the keys are dynamic and at the top level of the parsed object, we must iterate through these to allow for proper data mapping
         messages.removeAll()
         for key in json.keys {
             guard let value = json[key] as? [[String:Any]] else {
@@ -77,16 +77,11 @@ class UserMessagesResponse: GenericResponse {
     
     func parseItems() {
         // Because the body is returned as a json string rather than nested objects, we must do additional conversion
-        guard let bodyData = body?.data(using: .utf8) else {
-            print("unable to parse body data")
+        guard let body = body else {
+            print("body appears to be empty. Unable to decode messages")
             return
         }
         
-        guard let json = WebServiceManager.dataToJSON(data: bodyData) else {
-            print("unable to convert to JSON")
-            return
-        }
-        
-        userInfo = UserInfo(JSON: json)
+        userInfo = UserInfo(JSONString: body)
     }
 }
