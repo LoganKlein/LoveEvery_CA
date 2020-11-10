@@ -1,0 +1,6 @@
+framework module Pods_LoveEvery_CATests {
+  umbrella header "Pods-LoveEvery_CATests-umbrella.h"
+
+  export *
+  module * { export * }
+}
